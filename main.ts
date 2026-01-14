@@ -1,11 +1,20 @@
-import pogo from "https://deno.land/x/pogo/main.ts";
+import { Router } from "https://deno.land/x/rutt/mod.ts";
 
-const server = pogo.server({ port: 3000 });
+const router = new Router();
 
-server.route({
+function route({ method, path, handler }) {
+  router.add({
+    method,
+    pattern: path,
+    handler: () => new Response(handler()),
+  });
+}
+
+route({
   method: "GET",
   path: "/hello",
   handler: () => "Hello from Pogo",
 });
 
-await server.start();
+Deno.serve((req) => router.handle(req));
+
