@@ -1,7 +1,7 @@
 {
-  "tasks": {"start": "deno run -A main.ts"},
-  "imports": {},
-  "compilerOptions": {},
+  "imports": {
+    "elysia": "npm:elysia"
+  },
   "deploy": {
     "entrypoint": "main.ts"
   }
