@@ -1,4 +1,4 @@
-import { Elysia } from "https://esm.sh/elysia";
+import { Elysia } from "https://esm.sh/elysia?target=denonext";
 
 const app = new Elysia()
   .get("/", () => "Hello World");
