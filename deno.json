@@ -1,5 +1,5 @@
 {
-  "tasks": {},
+  "tasks": {"start": "deno run -A main.ts"},
   "imports": {},
   "compilerOptions": {},
   "deploy": {
