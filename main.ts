@@ -1,7 +1,7 @@
 import { Elysia } from "https://esm.sh/elysia";
 
 const app = new Elysia()
-  .get("/", () => "Hello World")
-  .listen(3000);
+  .get("/", () => "Hello World");
 
-console.log(`🟢 Server running at ${app.server?.hostname}:${app.server?.port}`);
+export default app.fetch;
+
