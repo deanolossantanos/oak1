@@ -1,13 +1,10 @@
-import { Router } from "https://deno.land/x/rutt/mod.ts";
+import { router as rutt } from "https://deno.land/x/rutt/mod.ts";
 
-const router = new Router();
+const defs = {};
 
 function route({ method, path, handler }) {
-  router.add({
-    method,
-    pattern: path,
-    handler: () => new Response(handler()),
-  });
+  defs[method] ??= {};
+  defs[method][path] = () => new Response(handler());
 }
 
 route({
@@ -16,5 +13,6 @@ route({
   handler: () => "Hello from Pogo",
 });
 
-Deno.serve((req) => router.handle(req));
+const handle = rutt(defs);
 
+Deno.serve(handle);
