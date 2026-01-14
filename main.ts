@@ -4,6 +4,7 @@ import { router as rutt } from "https://deno.land/x/rutt/mod.ts";
 // Route definitions (generic)
 // -----------------------------
 const defs = [];
+console.log("MAIN.TS IS RUNNING");
 
 function route(definition) {
   defs.push(definition);
