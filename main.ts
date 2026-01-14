@@ -1,9 +1,30 @@
-import { createApp } from "https://deno.land/x/servest/mod.ts";
+import { Router } from "https://deno.land/x/rutt/mod.ts";
 
-const app = createApp();
+const router = new Router();
 
-app.handle("/", (req) => {
-  req.respond({ body: "Hello from Servest!" });
+// Basic route
+router.get("/", () => new Response("Hello from Rutt!"));
+
+// Functional pattern matching
+router.get("/hello/:name", ({ params }) =>
+  new Response(`Hello ${params.name}`)
+);
+
+// Query params
+router.get("/search", ({ url }) => {
+  const q = url.searchParams.get("q") ?? "nothing";
+  return new Response(`You searched for: ${q}`);
 });
 
-export default app.fetch;
+// JSON API
+router.post("/api/data", async ({ request }) => {
+  const body = await request.json();
+  return new Response(JSON.stringify({ received: body }), {
+    headers: { "Content-Type": "application/json" }
+  });
+});
+
+// Fallback route
+router.all("*", () => new Response("Not found", { status: 404 }));
+
+export default (req: Request) => router.handle(req);
